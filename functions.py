@@ -28,6 +28,25 @@ def create_dataframe(df_data, df_columns, show_after_creation = False):
         print(dataframe)
     return dataframe
 
+########## show_accuracy_results ##########
+def show_accuracy_results(cm, accuracy, precision, recall, f1):
+    # Show Accuracy results
+    print('Confusion matrix:\n', cm)
+    print('\nAccuracy : %.3f' %accuracy)
+    print('Precision : %.3f' %precision)
+    print('Recall : %.3f' %recall)
+    print('F1-score : %.3f' %f1)
+
+    # Transform to df for easier plotting
+    cm_df = pd.DataFrame(cm, index = ['setosa','versicolor','virginica'], columns = ['setosa','versicolor','virginica'])
+    
+    plt.figure(figsize=(5.5,4))
+    sns.heatmap(cm_df, annot=True)
+    plt.title('Accuracy:{0:.3f}'.format(accuracy))
+    plt.ylabel('Actual')
+    plt.xlabel('Predicted')
+    plt.show()
+
 ########## train_using_logistic_regression ##########
 def train_model_using_logistic_regression(x_train, x_test, y_train, y_test, show_accuracy_results = False):
     
@@ -37,37 +56,19 @@ def train_model_using_logistic_regression(x_train, x_test, y_train, y_test, show
     predModel = reg.fit(x_train,y_train)
     
     # Making Predictions
-    y_predLR = predModel.predict(x_test)
+    y_pred = predModel.predict(x_test)
 
     # Calculate Performance
-    cm = confusion_matrix(y_test, y_predLR) # Confusion Matrix
-    accuracyLR = accuracy_score(y_test,y_predLR)
-    precision = precision_score(y_test, y_predLR,average='micro')
-    recall = recall_score(y_test, y_predLR,average='micro')
-    f1 = f1_score(y_test,y_predLR,average='micro')
+    cm = confusion_matrix(y_test, y_pred) # Confusion Matrix
+    accuracy = accuracy_score(y_test,y_pred)
+    precision = precision_score(y_test, y_pred,average='micro')
+    recall = recall_score(y_test, y_pred,average='micro')
+    f1 = f1_score(y_test,y_pred,average='micro')
 
     if(show_accuracy_results):
-        # Show Predictios Results
-        #print("Accuracy:", reg.score(x_test,y_test))
-        
-        # Show Accuracy results
-        # print('Confusion matrix for Logistic Regression:\n', cm)
-        print('\naccuracy_LR : %.3f' %accuracyLR)
-        print('precision_LR : %.3f' %precision)
-        print('recall_LR : %.3f' %recall)
-        print('f1-score_LR : %.3f' %f1)
+        show_accuracy_results(accuracy)
 
-        # Transform to df for easier plotting
-        cm_df = pd.DataFrame(cm, index = ['setosa','versicolor','virginica'], columns = ['setosa','versicolor','virginica'])
-        
-        plt.figure(figsize=(5.5,4))
-        sns.heatmap(cm_df, annot=True)
-        plt.title('Logistic Regression Accuracy:{0:.3f}'.format(accuracyLR))
-        plt.ylabel('Actual')
-        plt.xlabel('Predicted')
-        plt.show()
-
-    return cm, accuracyLR, precision, recall, f1
+    return cm, accuracy, precision, recall, f1
 
 
 ########## train_using_support_vector_classification ##########
@@ -77,36 +78,19 @@ def train_model_using_support_vector_classification(x_train, x_test, y_train, y_
     clf = SVC(kernel = 'linear').fit(x_train, y_train)
     
     # Making Predictions
-    y_predSVC = clf.predict(x_test)
+    y_pred = clf.predict(x_test)
 
     # Calculate Performance
-    cm = confusion_matrix(y_test, y_predSVC) # Confusion Matrix
-    accuracySVC = accuracy_score(y_test,y_predSVC)
-    precision = precision_score(y_test, y_predSVC,average='micro')
-    recall = recall_score(y_test, y_predSVC,average='micro')
-    f1 = f1_score(y_test,y_predSVC,average='micro')
+    cm = confusion_matrix(y_test, y_pred) # Confusion Matrix
+    accuracy = accuracy_score(y_test,y_pred)
+    precision = precision_score(y_test, y_pred,average='micro')
+    recall = recall_score(y_test, y_pred,average='micro')
+    f1 = f1_score(y_test,y_pred,average='micro')
 
     if(show_accuracy_results):
-        # Show Predictios Results
-        #print("Accuracy:", clf.score(x_test,y_test))
-        
-        # Show Accuracy results
-        # print('Confusion matrix for SVC\n', cm)
-        print('accuracy_SVC : %.3f' %accuracySVC)
-        print('precision_SVC : %.3f' %precision)
-        print('recall_SVC : %.3f' %recall)
-        print('f1-score_SVC : %.3f' %f1)
-    
-        # Transform to df for easier plotting
-        cm_df = pd.DataFrame(cm, index = ['setosa','versicolor','virginica'], columns = ['setosa','versicolor','virginica'])
-        plt.figure(figsize=(5.5,4))
-        sns.heatmap(cm_df, annot=True)
-        plt.title('SVM Linear Kernel Accuracy:{0:.3f}'.format(accuracySVC))
-        plt.ylabel('True label')
-        plt.xlabel('Predicted label')
-        plt.show()
+        show_accuracy_results(accuracy)
 
-    return cm, accuracySVC, precision, recall, f1
+    return cm, accuracy, precision, recall, f1
 
 ########## scale_features_using_min_max_scaler ##########
 def scale_features_using_min_max_scaler(data):
