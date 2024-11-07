@@ -1,4 +1,4 @@
-########## Scale data using StandardScaler ##########
+########## Scale data using MinMax Scaler ##########
 import functions as fns
 from sklearn.datasets import load_iris
 import seaborn as sns
@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 iris = load_iris()
 
-# scale_features_using_standard_scaler
+# scale_features_using_min_max_scaler
 data_scaled = fns.scale_features_using_min_max_scaler(iris.data)
 
 # Display DataFrame

@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 iris = load_iris()
 
-# scale_features_using_standard_scaler
+# Data NOT Scaled
 data_not_scaled = iris.data
 
 # Display DataFrame

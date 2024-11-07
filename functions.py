@@ -5,9 +5,16 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score
 from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier
+from sklearn import linear_model
+from sklearn.linear_model import SGDClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import  SVC,LinearSVC
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.datasets import load_iris
+from sklearn.model_selection import KFold,train_test_split,cross_val_score
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt

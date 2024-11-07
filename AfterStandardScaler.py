@@ -1,4 +1,4 @@
-########## Scale data using StandardScaler ##########
+########## Scale data using Standard Scaler ##########
 import functions as fns
 from sklearn.datasets import load_iris
 import seaborn as sns
