@@ -126,6 +126,23 @@ def train_using_k_nearest_neighbor(x_train, x_test, y_train, y_test, show_accura
     
     return cm, accuracy, precision, recall, f1
 
+########## train_using_gaussian_naive_bayes ##########
+def train_using_gaussian_naive_bayes(x_train, x_test, y_train, y_test, show_accuracy_results = False):
+    gaussian = GaussianNB()
+    gaussian.fit(x_train, y_train)    
+        
+    # Making Predictions
+    y_pred = gaussian.predict(x_test)
+
+    # Calculate Performance
+    cm = confusion_matrix(y_test, y_pred) # Confusion Matrix
+    accuracy = accuracy_score(y_test,y_pred)
+    precision = precision_score(y_test, y_pred,average='micro')
+    recall = recall_score(y_test, y_pred,average='micro')
+    f1 = f1_score(y_test,y_pred,average='micro')
+    
+    return cm, accuracy, precision, recall, f1
+
 ########## scale_features_using_min_max_scaler ##########
 def scale_features_using_min_max_scaler(data):
     # data is Features
